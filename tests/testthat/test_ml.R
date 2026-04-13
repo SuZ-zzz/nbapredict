@@ -1,6 +1,6 @@
 test_that("ML model builds successfully", {
   model <- nba_build_ml_model(nba_stats, ntree = 10)
-  expect_true(class(model)[1] == "randomForest")
+  expect_true(inherits(model, "randomForest"))
 })
 
 test_that("ML model can make predictions", {
