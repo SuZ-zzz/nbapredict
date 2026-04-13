@@ -82,7 +82,6 @@ vignette("nbapredict")
 
 ## Author
 
-Your Group Name
 
 ## License
 
