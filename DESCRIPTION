@@ -1,13 +1,28 @@
 Package: nbapredict
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Type: Package
+Title: NBA Game Prediction and Team Performance Analysis
+Version: 0.1.0
+Authors@R: c(person("Haoming", "Wu", email = "124090710@link.cuhk.edu.cn", role = c("aut", "cre")), person("Zhou", "Su", email = "123090514@link.chuk.edu.cn", role = "aut"))
+Description: This package provides functions for loading, cleaning, analyzing, visualizing, and predicting NBA game outcomes based on team performance data.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+Imports:
+    dplyr,
+    ggplot2,
+    readr,
+    stats,
+    tidyr,
+    randomForest
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
 URL: https://github.com/SuZ-zzz/nbapredict
 BugReports: https://github.com/SuZ-zzz/nbapredict/issues
+Config/testthat/edition: 3
+Depends: 
+    R (>= 3.5)
+LazyData: true
