@@ -1,25 +1,36 @@
 # nbapredict: NBA Player Statistics Prediction and Analysis
 
-An R package for analyzing and predicting NBA player statistics using both statistical methods and machine learning approaches.
+An R package for analyzing, visualizing, and predicting NBA player statistics using statistical methods and machine learning approaches.
 
 ## Overview
 
-`nbapredict` provides comprehensive tools for:
+`nbapredict` provides tools for:
 
 - **Data Processing**: Load and clean NBA player statistics
-- **Statistical Analysis**: Descriptive statistics, hypothesis testing, linear regression
-- **Machine Learning**: Random forest models for prediction
-- **Visualization**: Multiple plot types for data exploration
-- **Model Comparison**: Compare statistical and ML approaches
+- **Statistical Analysis**: Generate descriptive statistics and perform hypothesis testing
+- **Visualization**: Create plots for exploring player performance by position
+- **Prediction Modeling**: Build linear regression and random forest models
+- **Model Comparison**: Compare statistical and machine learning model performance
 
 ## Installation
 
-```r
-# Install from source
-install.packages("nbapredict_0.1.0.tar.gz", repos = NULL, type = "source")
+You can install the package from the local source folder:
 
-# Load the package
+```r
+# In RStudio, open the nbapredict project folder first
+devtools::install()
+```
+
+Then load the package:
+
+```r
 library(nbapredict)
+```
+
+For development, you can also use:
+
+```r
+devtools::load_all()
 ```
 
 ## Quick Start
@@ -27,61 +38,110 @@ library(nbapredict)
 ```r
 library(nbapredict)
 
-# Load example data
-data(nba_stats)
+# Load the included dataset
+data("nba_stats")
 
-# Get descriptive statistics
-nba_descriptive_stats(nba_stats)
+# View the data
+head(nba_stats)
 
-# Build a regression model
-model <- nba_build_regression_model(nba_stats, target = "points")
-summary(model)
+# Get descriptive statistics by player position
+desc <- nba_descriptive_stats(nba_stats)
+desc
 
 # Create a visualization
 nba_plot_analysis(nba_stats, plot_type = "boxplot")
+
+# Prepare data for modeling
+prepared <- nba_prepare_data(nba_stats)
+
+# Use a smaller sample for demonstration
+set.seed(123)
+demo_data <- prepared[sample(nrow(prepared), 1000), ]
+
+# Build a linear regression model
+stat_model <- nba_build_regression_model(demo_data, target = "points")
+summary(stat_model)
+
+# Build a random forest machine learning model
+ml_model <- nba_build_ml_model(demo_data, target = "points", ntree = 10)
+ml_model
+
+# Compare model performance
+comparison <- nba_compare_models(stat_model, ml_model, demo_data)
+comparison
+
+# Perform hypothesis testing
+test_result <- nba_hypothesis_test(demo_data, target = "points")
+test_result
 ```
 
 ## Main Functions
 
-1. **`nba_load_player_stats()`** - Load NBA data from CSV
-2. **`nba_clean_player_stats()`** - Clean and standardize data
-3. **`nba_descriptive_stats()`** - Calculate summary statistics by position
-4. **`nba_build_regression_model()`** - Build linear regression model
-5. **`nba_hypothesis_test()`** - Perform ANOVA test for position differences
-6. **`nba_build_ml_model()`** - Build random forest model
-7. **`nba_compare_models()`** - Compare statistical and ML models
-8. **`nba_plot_analysis()`** - Create various visualizations
+- `nba_load_player_stats()` - Load NBA player statistics from a CSV file
+- `nba_clean_player_stats()` - Clean and standardize NBA player statistics
+- `nba_descriptive_stats()` - Calculate descriptive statistics by player position
+- `nba_plot_analysis()` - Create visualizations for NBA player statistics
+- `nba_prepare_data()` - Prepare player statistics for modeling
+- `nba_build_regression_model()` - Build a linear regression model
+- `nba_build_ml_model()` - Build a random forest machine learning model
+- `nba_compare_models()` - Compare statistical and machine learning models
+- `nba_hypothesis_test()` - Perform an ANOVA hypothesis test by player position
 
 ## Data
 
-The package includes `nba_stats`, a cleaned dataset of NBA player statistics from 2015-2022.
+The package includes `nba_stats`, a cleaned dataset of historical NBA player statistics.
 
-## Vignette
+The dataset contains player-level season statistics such as:
 
-For a comprehensive guide, see the vignette:
+- season
+- player name
+- position
+- age
+- team
+- games played
+- minutes played
+- points
+- rebounds
+- assists
+- points per game
 
-```r
-vignette("nbapredict")
-```
+## Example Workflow
 
-## Key Features
+A typical workflow with `nbapredict` is:
 
-- **Mixed Methodology**: Combines statistical inference with machine learning
-- **Well Documented**: Roxygen documentation for all functions
-- **Tested**: Comprehensive test suite with testthat
-- **Reproducible**: Example data and complete documentation
+1. Load the included `nba_stats` dataset
+2. Generate descriptive statistics by position
+3. Visualize points per game distributions
+4. Prepare the data for modeling
+5. Build a linear regression model
+6. Build a random forest model
+7. Compare model performance
+8. Conduct a hypothesis test
 
 ## Requirements
 
-- R >= 3.5.0
+- R >= 4.1.0
 - dplyr
 - tidyr
 - ggplot2
 - readr
 - randomForest
+- testthat
 
-## Author
+## Package Check
 
+The package has been checked using `devtools::check()` and passes with:
+
+```text
+0 errors | 0 warnings | 1 note
+```
+
+The remaining note is related to verifying the system time and is environment-related.
+
+## Authors
+
+- Haoming Wu
+- Zhou Su
 
 ## License
 
